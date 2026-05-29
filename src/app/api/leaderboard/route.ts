@@ -18,7 +18,7 @@ export async function GET() {
       include: { category: true },
     });
 
-    const ranked = sites.map((site, index) => ({
+    const ranked = sites.map((site: typeof sites[number], index: number) => ({
       ...site,
       rank: index + 1,
     }));

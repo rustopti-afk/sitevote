@@ -118,7 +118,7 @@ export default function AnalyticsPage() {
             data?: LeaderboardSite[];
           };
           if (boardBody.success && boardBody.data) {
-            board = boardBody.data.slice(0, 10).map((site) => ({
+            board = boardBody.data.slice(0, 10).map((site: LeaderboardSite) => ({
               name: site.name,
               votes: site.voteCount,
             }));
@@ -150,7 +150,7 @@ export default function AnalyticsPage() {
     if (!stats || stats.recentVotes.length === 0) return;
 
     const header = ["Користувач", "Email", "Сайт", "Дата", "IP"];
-    const rows = stats.recentVotes.map((vote) =>
+    const rows = stats.recentVotes.map((vote: AdminStats["recentVotes"][number]) =>
       [
         csvField(vote.user?.name),
         csvField(vote.user?.email),

@@ -100,13 +100,13 @@ export async function GET(request: NextRequest) {
       const votes = await prisma.vote.findMany({
         where: {
           userId,
-          siteId: { in: sites.map((site) => site.id) },
+          siteId: { in: sites.map((s: typeof sites[number]) => s.id) },
         },
         select: { siteId: true },
       });
-      const votedSiteIds = new Set(votes.map((vote) => vote.siteId));
+      const votedSiteIds = new Set(votes.map((v: typeof votes[number]) => v.siteId));
 
-      data = sites.map((site) => ({
+      data = sites.map((site: typeof sites[number]) => ({
         ...site,
         hasVoted: votedSiteIds.has(site.id),
       }));
