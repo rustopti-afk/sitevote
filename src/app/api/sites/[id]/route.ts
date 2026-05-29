@@ -105,7 +105,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     }
 
     // Normalise empty-string thumbnail to null when explicitly provided.
-    const data: Prisma.SiteUpdateInput = { ...parsed.data };
+    const data: Record<string, unknown> = { ...parsed.data };
     if (parsed.data.thumbnail !== undefined) {
       data.thumbnail = parsed.data.thumbnail ? parsed.data.thumbnail : null;
     }
@@ -119,15 +119,16 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     const response: ApiResponse<typeof site> = { success: true, data: site };
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === "P2025") {
+    const prismaErr = error as { code?: string };
+    if (prismaErr?.code) {
+      if (prismaErr.code === "P2025") {
         const response: ApiResponse<never> = {
           success: false,
           error: { code: "NOT_FOUND", message: "Site not found." },
         };
         return NextResponse.json(response, { status: 404 });
       }
-      if (error.code === "P2002") {
+      if (prismaErr.code === "P2002") {
         const response: ApiResponse<never> = {
           success: false,
           error: {
@@ -170,8 +171,7 @@ export async function DELETE(_request: NextRequest, context: RouteContext) {
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
     if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2025"
+      (error as { code?: string })?.code === "P2025"
     ) {
       const response: ApiResponse<never> = {
         success: false,
