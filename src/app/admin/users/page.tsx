@@ -29,7 +29,7 @@ export default async function UsersPage() {
     },
   });
 
-  const rows: AdminUserRow[] = users.map((user) => ({
+  const rows: AdminUserRow[] = users.map((user: typeof users[number]) => ({
     id: user.id,
     email: user.email,
     name: user.name,
