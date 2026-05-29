@@ -32,7 +32,7 @@ export async function PATCH(req: NextRequest, context: RouteContext) {
       isBlocked?: unknown;
     };
 
-    const data: Prisma.UserUpdateInput = {};
+    const data: { role?: string; isBlocked?: boolean } = {};
 
     if (role !== undefined) {
       if (typeof role !== "string" || !VALID_ROLES.includes(role)) {
