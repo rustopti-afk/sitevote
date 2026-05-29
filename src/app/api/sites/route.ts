@@ -1,6 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
 import slugify from "slugify";
-import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { createSiteSchema } from "@/lib/validations/site.schema";
@@ -32,7 +31,7 @@ function parsePositiveInt(
  */
 function buildOrderBy(
   sortBy: SortBy,
-): Prisma.SiteOrderByWithRelationInput {
+): Record<string, string> {
   switch (sortBy) {
     case "newest":
       return { createdAt: "desc" };
@@ -67,7 +66,7 @@ export async function GET(request: NextRequest) {
       MAX_PAGE_SIZE,
     );
 
-    const where: Prisma.SiteWhereInput = {
+    const where: Record<string, unknown> = {
       status: "ACTIVE",
       ...(categoryId ? { categoryId } : {}),
       ...(search
@@ -233,8 +232,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(response, { status: 201 });
   } catch (error) {
     if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2002"
+      (error as { code?: string })?.code === "P2002"
     ) {
       // Unique constraint (most likely the site `url`).
       const response: ApiResponse<never> = {

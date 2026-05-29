@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { rateLimit, RATE_LIMITS } from "@/lib/rate-limit";
@@ -105,8 +104,7 @@ export async function POST(req: NextRequest, context: RouteContext) {
   } catch (error) {
     // Unique constraint on (userId, siteId) means the user already voted.
     if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2002"
+      (error as { code?: string })?.code === "P2002"
     ) {
       return NextResponse.json(
         {
@@ -161,8 +159,7 @@ export async function DELETE(_req: NextRequest, context: RouteContext) {
   } catch (error) {
     // P2025 = record to delete/update not found → no vote to remove.
     if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2025"
+      (error as { code?: string })?.code === "P2025"
     ) {
       return NextResponse.json(
         { success: false, error: { code: "VOTE_NOT_FOUND", message: "Vote not found" } },
