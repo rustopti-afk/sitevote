@@ -13,7 +13,7 @@ import { VoteButton } from "@/components/features/voting/VoteButton";
 import { SiteCard } from "@/components/features/sites/SiteCard";
 
 // Detail pages change rarely; revalidate every 5 minutes.
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 interface SitePageProps {
   // Next.js 15 passes params as a Promise.

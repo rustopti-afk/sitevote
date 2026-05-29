@@ -11,7 +11,7 @@ import { SiteGrid } from "@/components/features/sites/SiteGrid";
 import { SiteCard } from "@/components/features/sites/SiteCard";
 
 // Re-generate the landing page at most once per minute (ISR).
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Головна",

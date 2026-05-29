@@ -6,7 +6,7 @@ import { PageTransition } from "@/components/shared/PageTransition";
 import { RankingTable } from "@/components/features/leaderboard/RankingTable";
 
 // Refresh the ranking snapshot every minute.
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Рейтинг",

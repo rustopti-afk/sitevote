@@ -8,7 +8,7 @@ import { SiteFilters } from "@/components/features/sites/SiteFilters";
 import { SiteGrid } from "@/components/features/sites/SiteGrid";
 
 // Voting is time-sensitive: refresh the snapshot every 30 seconds.
-export const revalidate = 30;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Голосування",
