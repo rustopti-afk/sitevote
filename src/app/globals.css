@@ -1,0 +1,105 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+@theme {
+  /* Typography */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Custom shadows */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-card: 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 20px 60px rgba(0,0,0,0.12);
+  --shadow-btn: 0 2px 8px rgba(0,0,0,0.12);
+  --shadow-btn-hover: 0 10px 30px rgba(0,0,0,0.20);
+  --shadow-glass: 0 8px 32px rgba(0,0,0,0.08);
+
+  /* Custom blur */
+  --blur-glass: 14px;
+
+  /* Custom max-width */
+  --width-content: 1200px;
+}
+
+/* Base body styles */
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F8F9FB; }
+::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #D1D5DB; }
+
+@layer components {
+  /* Premium white glass card */
+  .card-premium {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 28px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-premium:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    border-color: rgba(0, 0, 0, 0.10);
+  }
+
+  /* Silver gradient text */
+  .text-gradient-silver {
+    background: linear-gradient(135deg, #111827 0%, #6B7280 50%, #111827 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Shimmer skeleton */
+  .shimmer-base {
+    background: linear-gradient(90deg, #F3F4F6 25%, #E5E7EB 50%, #F3F4F6 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+  }
+}
+
+@layer utilities {
+  /* Float animation for stat cards */
+  .animate-float {
+    animation: floatCard 4s ease-in-out infinite;
+  }
+  .animate-float-delay-1 {
+    animation: floatCard 4s ease-in-out 0.3s infinite;
+  }
+  .animate-float-delay-2 {
+    animation: floatCard 4s ease-in-out 0.6s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes orbDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(5%, 3%) scale(1.08); }
+}
+@keyframes orbDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-5%, -3%) scale(1.1); }
+}
+@keyframes orbDrift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-2%, 4%) scale(1.05); }
+}
