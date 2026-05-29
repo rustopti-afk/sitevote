@@ -78,7 +78,7 @@ export default async function VotesPage() {
                   </td>
                 </tr>
               ) : (
-                votes.map((vote) => (
+                votes.map((vote: typeof votes[number]) => (
                   <tr key={vote.id} className="hover:bg-silver-50">
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-2.5">

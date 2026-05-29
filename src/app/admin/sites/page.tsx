@@ -98,7 +98,7 @@ export default async function SitesPage() {
                   </td>
                 </tr>
               ) : (
-                sites.map((site) => (
+                sites.map((site: typeof sites[number]) => (
                   <tr
                     key={site.id}
                     className="border-b border-gray-50 text-sm text-gray-700 transition-colors hover:bg-gray-50/80"
