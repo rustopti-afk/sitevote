@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Prisma, Role } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
 }
 
-// Allowed role values, mirrored from the Prisma Role enum.
-const VALID_ROLES = Object.values(Role) as string[];
+// Allowed role values — keep in sync with Prisma Role enum.
+const VALID_ROLES = ["USER", "MODERATOR", "ADMIN"] as const;
 
 /**
  * PATCH /api/admin/users/[id]
